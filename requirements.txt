@@ -1,0 +1,14 @@
+langchain==0.1.0
+faiss-cpu==1.7.4
+fastapi==0.104.1
+uvicorn==0.24.0
+python-dotenv==1.0.0
+chainlit==0.7.700
+requests==2.31.0
+pydantic==2.5.2
+python-multipart==0.0.6
+typing-extensions==4.8.0
+motor==3.3.1
+pymongo==4.6.1
+python-multipart==0.0.6
+pypdf==3.17.1
