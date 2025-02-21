@@ -38,7 +38,11 @@ User ─────────────────▶ Chainlit UI ──�
 
 ### Set-up
 
-* Install Ollama locally (for Mac): `brew install ollama`
+* Install Ollama locally (for Mac): 
+```
+brew install ollama
+brew services start ollama
+```
 
 * Download required models: 
 ```
