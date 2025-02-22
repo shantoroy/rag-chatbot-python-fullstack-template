@@ -1,10 +1,12 @@
 from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
+from motor.motor_asyncio import AsyncIOMotorClient
+import gridfs
+from bson import ObjectId
+from backend.model import RAGModel
 import os
-import shutil
-import logging
-from model import RAGModel
 from typing import Optional
+import logging
 
 app = FastAPI()
 logging.basicConfig(level=logging.INFO)
@@ -18,25 +20,16 @@ class Answer(BaseModel):
     status: str
     error: Optional[str] = None
 
-# Initialize model with environment variables
+# Initialize MongoDB and model
+mongodb_url = os.getenv("MONGODB_URL", "mongodb://mongodb:27017")
 ollama_url = os.getenv("OLLAMA_URL", "http://localhost:11434")
-documents_dir = os.getenv("DOCUMENTS_DIR", "/app/documents")
-
-# Ensure documents directory exists
-os.makedirs(documents_dir, exist_ok=True)
-
-logger.info(f"Using DOCUMENTS_DIR: {documents_dir}")
-logger.info(f"Using OLLAMA_URL: {ollama_url}")
-
-model = RAGModel(data_dir=documents_dir, base_url=ollama_url)
+model = RAGModel(mongodb_url=mongodb_url, ollama_url=ollama_url)
 
 @app.on_event("startup")
 async def startup_event():
     """Initialize the model on startup."""
     try:
-        # Load documents and initialize QA chain
-        model.load_and_process_documents()  # Removed 'await'
-        model.initialize_qa_chain()
+        await model.initialize_from_mongodb()
         logger.info("Model initialization completed")
     except Exception as e:
         logger.error(f"Error during startup: {str(e)}")
@@ -44,29 +37,28 @@ async def startup_event():
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    """Upload a file to the documents directory."""
+    """Upload a PDF file to MongoDB."""
     try:
-        file_path = os.path.join(documents_dir, file.filename)
-
-        # Save the uploaded file
-        with open(file_path, "wb") as f:
-            shutil.copyfileobj(file.file, f)
-
-        logger.info(f"File uploaded successfully: {file_path}")
-
-        # Re-process the documents after upload
-        model.load_and_process_documents()  # Removed 'await'
-
-        return {"message": "File uploaded successfully", "file_path": file_path}
+        # Save file to GridFS
+        contents = await file.read()
+        file_id = await model.db.fs.upload_from_stream(
+            file.filename,
+            contents
+        )
+        
+        # Process the new file
+        await model.process_pdf(file_id)
+        
+        return {"message": "File uploaded successfully", "file_id": str(file_id)}
     except Exception as e:
         logger.error(f"Error uploading file: {str(e)}")
-        return {"error": str(e)}
+        raise
 
 @app.post("/ask", response_model=Answer)
 async def ask_question(question: Question):
     """Handle questions and return answers."""
     try:
-        result = model.get_answer(question.text)  # Removed 'await'
+        result = await model.get_answer(question.text)
         return Answer(
             answer=result["answer"],
             status=result["status"],

@@ -1,0 +1,111 @@
+1. Workshop: "Emerging Trends in Artificial Intelligence"
+Date: January 15, 2024
+Details: A hands-on workshop exploring cutting-edge AI technologies and frameworks.
+Guests: Dr. Alice Mendel (MIT), Prof. Rajiv Kohli (Stanford).
+Convener: Jessica Bryant
+Location: Room 203, Innovation Hub
+Other Details: Attended by 50+ participants; included live coding sessions.
+
+2. Roundtable Discussion: "The Ethics of Machine Learning"
+Date: February 10, 2024
+Details: A discussion on the ethical implications of AI, featuring diverse industry perspectives.
+Guests: Emma Liu (Data Ethics Consultant), Michael Perez (Google AI Ethics).
+Convener: David Clark
+Location: Main Auditorium
+Other Details: Attended by 30 participants, moderated by NERD team member Lisa Fernandez.
+
+3. Monthly Meeting: "Quarterly Goal Review and Planning"
+Date: March 1, 2024
+Details: Internal meeting to discuss project progress and set new goals.
+Convener: Mark Ellison
+Location: NERD Conference Room A
+Other Details: Covered upcoming workshops and performance metrics.
+
+4. Voluntary Activity: "Coding for Kids"
+Date: March 20, 2024
+Details: Team members volunteered to teach basic coding to middle school students.
+Convener: Laura Kim
+Location: Greenwood Community School
+Other Details: 12 team members participated; donated 20 Raspberry Pi kits.
+
+5. Seminar: "The Future of Cloud Computing"
+Date: April 12, 2024
+Details: Expert-led seminar exploring trends in cloud infrastructure.
+Guests: Mark Donovan (AWS Architect), Priya Sharma (GCP Specialist).
+Convener: Ethan Harper
+Location: Auditorium, Tech Pavilion
+Other Details: Keynote by AWS expert, followed by Q&A.
+
+6. Potluck: "Cultural Food Festival"
+Date: May 5, 2024
+Details: Team members brought dishes representing their cultural heritage.
+Convener: Samantha Reed
+Location: NERD Courtyard
+Other Details: 20+ dishes were shared; included a trivia game about global cuisines.
+
+7. Workshop: "Cybersecurity Fundamentals for Developers"
+Date: May 20, 2024
+Details: Training on securing applications, including OWASP Top 10.
+Guests: Alex Chambers (Ethical Hacker), Maria Gonzales (CISO).
+Convener: Nathan Jones
+Location: Lab 5, Tech Center
+Other Details: Provided practice labs and certification vouchers.
+
+8. Panel Discussion: "Women in Tech: Breaking Barriers"
+Date: June 10, 2024
+Details: A panel featuring women leaders sharing their journeys and challenges in tech.
+Guests: Sophia Blake (Tech Entrepreneur), Naomi Patel (VP, Microsoft).
+Convener: Tina Zhao
+Location: Room 104, Innovation Hub
+Other Details: 100+ attendees, followed by networking.
+
+9. Networking Event: "Tech and Coffee"
+Date: July 2, 2024
+Details: Informal networking session for professionals across tech domains.
+Convener: Chris Moore
+Location: NERD Cafeteria
+Other Details: Included an icebreaker game and short tech presentations.
+
+10. Hackathon: "24-Hour AI Challenge"
+Date: August 15, 2024
+Details: A team-based competition to solve real-world AI problems.
+Guests: Judges from NVIDIA and OpenAI.
+Convener: Oliver Grant
+Location: NERD Hall
+Other Details: Winners received $5,000 in cash prizes.
+
+11. Monthly Meeting: "Team Building and Feedback"
+Date: September 1, 2024
+Details: Discussed team cohesion and brainstormed future initiatives.
+Convener: Emily Davis
+Location: Conference Room B
+Other Details: Included a trust-building activity.
+
+12. Charity Event: "Tech for Good Drive"
+Date: September 25, 2024
+Details: Collected and refurbished laptops for underprivileged students.
+Convener: Sarah Green
+Location: NERD Storage Facility
+Other Details: 30 laptops refurbished and distributed to local schools.
+
+13. Seminar: "Quantum Computing: The Next Frontier"
+Date: October 18, 2024
+Details: A talk introducing quantum computing concepts and applications.
+Guests: Dr. Leo Tan (IBM Quantum), Prof. Carla Vega (Caltech).
+Convener: Harvey Lin
+Location: Tech Amphitheater
+Other Details: Free booklets on quantum computing basics distributed.
+
+14. Team Outing: "NERD Trek and Retreat"
+Date: November 5, 2024
+Details: A day-long trek followed by a strategy retreat.
+Convener: Mia Parker
+Location: Blue Ridge Mountains
+Other Details: Covered team vision and future plans in a relaxing setting.
+
+15. Annual Gala: "NERD Awards Night"
+Date: December 15, 2024
+Details: Recognized outstanding contributions by team members and celebrated the year.
+Convener: Rachel Summers
+Location: Grand Ballroom, City Center
+Other Details: Featured live music, awards ceremony, and dinner.

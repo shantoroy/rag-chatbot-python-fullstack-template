@@ -1,0 +1,45 @@
+FROM python:3.10-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential libmagic1 file unzip wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first (to leverage Docker layer caching)
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# # Download NLTK data
+# RUN mkdir -p /root/nltk_data
+# RUN wget https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/punkt.zip -O /root/nltk_data/punkt.zip
+# RUN wget https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip -O /root/nltk_data/punkt2.zip
+# RUN unzip /root/nltk_data/punkt.zip -d /root/nltk_data/
+# RUN unzip /root/nltk_data/punkt2.zip -d /root/nltk_data/tokenizers/
+# ENV NLTK_DATA=/root/nltk_data
+
+# Download NLTK data properly
+RUN python -m nltk.downloader punkt
+
+# Copy application code
+COPY backend /app/backend
+
+# Create necessary directories
+RUN mkdir -p /app/documents /app/vector_store
+
+# Set a non-root user for security
+RUN useradd -m appuser
+USER appuser
+
+# Set the working directory inside backend
+WORKDIR /app/backend
+
+# Expose the port (optional but good practice)
+EXPOSE 8000
+
+# Run the backend
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

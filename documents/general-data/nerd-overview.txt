@@ -1,0 +1,74 @@
+Employee Development Planning (EDP) Overview
+The NERD Employee Development Program (EDP) is designed to foster growth and enhance employee skills through structured learning paths, mentorship, and resource allocation. The program emphasizes personal development, career advancement, and alignment with organizational goals.
+
+1. Procedures for Development Planning
+A. Initiation Phase
+Employee Self-Assessment:
+Employees complete a self-assessment form highlighting skills, strengths, areas for improvement, and career aspirations.
+Deadline: First Week of January.
+Tool: Online form in the HR portal.
+
+Manager Assessment:
+Managers evaluate the employee’s current skill level, performance metrics, and potential.
+Deadline: Second Week of January.
+Tool: HR Evaluation Dashboard.
+
+B. Planning Phase
+Goal Setting:
+Collaborative goal-setting meetings are held between employees and managers. Goals are set following the SMART (Specific, Measurable, Achievable, Relevant, Time-bound) framework.
+Convener: Assigned Team Leads
+Timeline: January 15 – February 15
+
+Skill Gap Analysis:
+Employees are assessed against their role requirements. A gap report is generated, outlining recommended training and resources.
+Lead: Training Coordinator: Laura Kim
+
+C. Implementation Phase
+Learning Path Assignment:
+Employees are assigned a personalized learning path, including courses, certifications, and mentoring programs.
+Resource: NERD Learning Hub
+Lead: Jessica Bryant, Learning Specialist
+
+Resource Allocation:
+
+Annual budget per employee: $2,500 for external courses and certifications.
+Access to company subscriptions (Coursera, Pluralsight, LinkedIn Learning).
+Mentorship programs: Pairing with a senior professional in the same domain.
+D. Review and Feedback Phase
+Quarterly Reviews:
+Employees and managers review progress toward development goals.
+Lead: David Clark, HR Manager
+Timeline: April, July, October, and December
+
+Annual Performance Appraisal:
+EDP outcomes are integrated into the annual performance appraisal.
+
+2. Team Leads and Their Roles
+Mark Ellison – Software Development Lead
+Focus: Backend technologies, cloud computing, and team leadership skills.
+Responsibilities:
+
+Conducting weekly technical workshops.
+Guiding junior developers through complex projects.
+Approving external training requests.
+Emily Davis – Data Science Lead
+Focus: Machine learning, big data, and visualization tools.
+Responsibilities:
+
+Supervising data science bootcamps.
+Pairing employees with data mentors.
+Setting up quarterly hackathons.
+Nathan Jones – Cybersecurity Lead
+Focus: Security frameworks, vulnerability assessment, and compliance.
+Responsibilities:
+
+Overseeing cybersecurity certification pathways.
+Organizing monthly threat simulation exercises.
+Leading company-wide security audits.
+Tina Zhao – Innovation and R&D Lead
+Focus: New technologies, patents, and innovation projects.
+Responsibilities:
+
+Encouraging patent filing through idea workshops.
+Leading R&D funding applications.
+Pairing innovators with university research teams.
