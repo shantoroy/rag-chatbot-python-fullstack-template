@@ -106,7 +106,8 @@ class RAGModel:
             )
             md_loader = DirectoryLoader(
                 self.data_dir, 
-                glob="**/*.{md,markdown}", 
+                # glob="**/*.{md,markdown}", 
+                glob="**/*.md", 
                 loader_cls=UnstructuredMarkdownLoader,
                 loader_kwargs={'mode': "single"}
             )
@@ -158,7 +159,7 @@ class RAGModel:
             self.qa_chain = RetrievalQA.from_chain_type(
                 llm=self.llm,
                 chain_type="stuff",
-                retriever=self.vector_store.as_retriever(search_kwargs={"k": 3}),
+                retriever=self.vector_store.as_retriever(search_kwargs={"k": 5}),
             )
 
             logger.info("QA chain initialized successfully.")
@@ -167,25 +168,25 @@ class RAGModel:
             logger.error(f"Error initializing QA chain: {str(e)}")
             raise
 
+
     def get_answer(self, question: str) -> Dict[str, Any]:
-        """
-        Get answer for a given question.
-        
-        Args:
-            question (str): User question
-            
-        Returns:
-            Dict[str, Any]: Answer and relevant metadata
-        """
+        """Get answer for a given question."""
         try:
             if not self.qa_chain:
                 raise ValueError("QA chain not initialized.")
 
             result = self.qa_chain({"query": question})
 
+            # Log retrieved sources
+            sources = result.get("source_documents", [])
+            if not sources:
+                logger.warning("No relevant documents retrieved.")
+
+            logger.info(f"Retrieved {len(sources)} documents: {[doc.metadata for doc in sources]}")
+
             return {
                 "answer": result.get("answer", "No answer found."),
-                "sources": result.get("source_documents", []),
+                "sources": sources,
                 "status": "success"
             }
 
@@ -196,6 +197,7 @@ class RAGModel:
                 "error": str(e),
                 "status": "error"
             }
+
 
     def save_vector_store(self) -> None:
         """Save the vector store for future use."""

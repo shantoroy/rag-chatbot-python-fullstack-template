@@ -1,7 +1,9 @@
-langchain-community==0.3.18
+langchain>=0.1.0,<0.2.0
+langchain-community>=0.0.10
+langchain-core>=0.1.0
 faiss-cpu==1.7.4
-fastapi>=0.100
-uvicorn>=0.23.2
+fastapi>=0.100,<0.101
+uvicorn>=0.23.2,<0.24.0
 python-dotenv==1.0.0
 requests==2.31.0
 pydantic==2.7.4
@@ -9,6 +11,6 @@ python-multipart==0.0.6
 typing-extensions==4.8.0
 motor==3.3.1
 pypdf==3.17.1
-unstructured==0.12.0
+unstructured>=0.10.27
 markdown>=3.3.0
-python-magic==0.4.24
+python-magic>=0.4.27
