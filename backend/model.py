@@ -43,53 +43,17 @@ class RAGModel:
         self.llm = Ollama(
             model="mistral",
             base_url=base_url,
-            temperature=0.1
+            temperature=0.5
         )
+
+        if not self.llm:
+            logger.warning("LLM Initialization not Successful...")
+        else:
+            logger.info("LLM Initialization is Successful...")
 
         self.vector_store = None
         self.qa_chain = None
 
-    # def load_and_process_documents(self) -> None:
-    #     """Load documents from directory and create vector store."""
-    #     try:
-    #         logger.info("Loading documents from directory...")
-
-    #         # Load PDF, txt, and markdown files
-    #         pdf_loader = DirectoryLoader(self.data_dir, glob="**/*.pdf", loader_cls=PyPDFLoader)
-    #         txt_loader = DirectoryLoader(self.data_dir, glob="**/*.txt")
-    #         md_loader = DirectoryLoader(self.data_dir, glob="**/*.{md,markdown}", loader_cls=UnstructuredMarkdownLoader)
-
-    #         pdf_documents = pdf_loader.load()
-    #         txt_documents = txt_loader.load()
-    #         md_documents = md_loader.load()
-            
-    #         documents = pdf_documents + txt_documents + md_documents
-            
-    #         if not documents:
-    #             logger.warning("No documents found in the directory. Skipping vector store creation.")
-    #             return
-
-    #         logger.info(f"Loaded {len(documents)} documents:")
-    #         logger.info(f"- PDF files: {len(pdf_documents)}")
-    #         logger.info(f"- Text files: {len(txt_documents)}")
-    #         logger.info(f"- Markdown files: {len(md_documents)}")
-
-    #         text_splitter = RecursiveCharacterTextSplitter(
-    #             chunk_size=1000,
-    #             chunk_overlap=200,
-    #         )
-    #         texts = text_splitter.split_documents(documents)
-    #         logger.info(f"Split into {len(texts)} text chunks.")
-
-    #         logger.info("Creating vector store...")
-    #         self.vector_store = FAISS.from_documents(texts, self.embeddings)
-
-    #         # Save the vector store for future use
-    #         self.save_vector_store()
-            
-    #     except Exception as e:
-    #         logger.error(f"Error processing documents: {str(e)}")
-    #         raise
 
     def load_and_process_documents(self) -> None:
         """Load documents from directory and create vector store."""
@@ -131,11 +95,17 @@ class RAGModel:
             logger.info(f"- Markdown files: {len(md_documents)}")
 
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,
-                chunk_overlap=200,
+                chunk_size=500,
+                chunk_overlap=100,
+                length_function=len,
+                is_separator_regex=False,
             )
             texts = text_splitter.split_documents(documents)
             logger.info(f"Split into {len(texts)} text chunks.")
+
+            # Log a sample of the chunks to verify content
+            if texts:
+                logger.info(f"Sample chunk content: {texts[0].page_content[:200]}...")
 
             logger.info("Creating vector store...")
             self.vector_store = FAISS.from_documents(texts, self.embeddings)
@@ -147,6 +117,7 @@ class RAGModel:
             logger.error(f"Error processing documents: {str(e)}")
             raise
 
+
     def initialize_qa_chain(self) -> None:
         """Initialize the question-answering chain."""
         try:
@@ -156,10 +127,29 @@ class RAGModel:
             if not self.vector_store:
                 raise ValueError("Vector store not initialized. Please load documents first.")
 
+            # Log the number of documents in the vector store
+            logger.info(f"Number of documents in vector store: {self.vector_store.index.ntotal}")
+
+            # Test the retriever with a sample query
+            # test_query = "What is the company's mission?"
+            # retrieved_docs = self.vector_store.similarity_search(test_query, k=5)
+            # logger.info(f"Retrieved documents for test query: {retrieved_docs}")
+
+            # Define a custom prompt template
+            from langchain.prompts import PromptTemplate
+
+            custom_prompt = PromptTemplate(
+                input_variables=["context", "question"],
+                template="Use the following context to answer the question. If you don't know the answer, say 'I don't know'.\n\nContext:\n{context}\n\nQuestion:\n{question}\n\nAnswer:",
+            )
+
+            # Initialize the QA chain with custom prompt
             self.qa_chain = RetrievalQA.from_chain_type(
                 llm=self.llm,
                 chain_type="stuff",
                 retriever=self.vector_store.as_retriever(search_kwargs={"k": 5}),
+                return_source_documents=True, 
+                chain_type_kwargs={"prompt": custom_prompt},
             )
 
             logger.info("QA chain initialized successfully.")
@@ -175,17 +165,25 @@ class RAGModel:
             if not self.qa_chain:
                 raise ValueError("QA chain not initialized.")
 
+            logger.info(f"Query passed to QA chain: {question}")
             result = self.qa_chain({"query": question})
+            logger.info(f"QA chain result: {result}")
+
+            # Extract the answer
+            answer = result.get("result", "No answer found.")
+            logger.info(f"Answer: {answer}")
 
             # Log retrieved sources
             sources = result.get("source_documents", [])
             if not sources:
                 logger.warning("No relevant documents retrieved.")
-
-            logger.info(f"Retrieved {len(sources)} documents: {[doc.metadata for doc in sources]}")
-
+            else:
+                logger.info(f"Retrieved {len(sources)} documents:")
+                for doc in sources:
+                    logger.info(f"Document content: {doc.page_content[:200]}...")  # Log first 200 chars of each document
+                    logger.info(f"Document metadata: {doc.metadata}")
             return {
-                "answer": result.get("answer", "No answer found."),
+                "answer": answer,
                 "sources": sources,
                 "status": "success"
             }
