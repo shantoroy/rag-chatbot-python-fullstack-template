@@ -1,12 +1,10 @@
 # RAG Chatbot (Python Fullstack template)
 
-A production-ready RAG (Retrieval Augmented Generation) based question-answering system that allows employees to query company documents using natural language. The system uses local LLMs through Ollama for privacy and performance, MongoDB for document storage, and provides a chat interface for easy interaction.
+A RAG (Retrieval Augmented Generation) based question-answering prrof-of-concept (PoC) system that allows a user to query target documents using natural language. The system uses local LLMs through Ollama for privacy and performance and provides a chat interface for easy interaction. The entire codebase (both backend and frontend are developed using Python3.10).
 
 ## 🌟 Features
 
 * Local LLM Integration: Uses Ollama for running models locally, ensuring data privacy
-* Document Management: Upload and process PDF documents directly through the chat interface
-* MongoDB Storage: Persistent storage of documents with GridFS
 * Vector Search: Efficient document retrieval using FAISS
 * Modern Chat Interface: Built with Chainlit for a smooth user experience
 * Containerized Services: Easy deployment with Docker Compose
@@ -14,18 +12,18 @@ A production-ready RAG (Retrieval Augmented Generation) based question-answering
 
 ## 🔧 System Architecture
 ```
-           Upload PDFs
-User ─────────────────▶ Chainlit UI ──────▶ MongoDB
-                           │                   │
-                           │                   │
-                    Query  │                   │ Retrieve
-                           │                   │ Documents
-                           ▼                   ▼
-                       FastAPI ◄─────────── RAG Model ◄─────── Local Ollama
-                       Backend                 │
-                           │                   │
-                           └───────────────────┘
-                              Return Answer
+        
+User ───────────────▶ Chainlit UI       Documents (txt/md/pdf)
+                           │                     │
+                           │                     │
+                    Query  │                     │ Retrieve
+                           │                     │ Documents
+                           ▼                     ▼
+                       FastAPI ◄───────────  RAG Model ◄─────── Local Ollama
+                       Backend                   │
+                           │                     │
+                           └─────────────────────┘
+                                Return Answer
 ```
 
 ## 🚀 Getting Started
@@ -34,7 +32,7 @@ User ─────────────────▶ Chainlit UI ──�
 * Docker and Docker Compose
 * Ollama (for local model running)
 * Python 3.10+
-* MongoDB (handled by Docker)
+
 
 ### Set-up
 
@@ -52,42 +50,43 @@ ollama run nomic-embed-text
 
 * Clone the repository:
 ```
-git clone https://github.com/yourusername/company-kb-assistant.git
-cd company-kb-assistant
+git clone https://github.com/yourusername/rag-chatbot-python-fullstack-template.git
+cd rag-chatbot-python-fullstack-template
 ```
 
 * Start the services:
 ```
-docker-compose up --build
+docker-compose build
+docker-compose up -d
 ```
 
 ### Usage
 
-* Access the chat interface at http://localhost:8501
-* Upload company documents using the file upload button
+* Access the chat interface at http://localhost:8505
+* Keep your files under the documents directory
 * Start asking questions about your documents!
 
 ## 🏗️ Project Structure
 ```
 rag-chatbot-python-fullstack-template/
 ├── backend/
-│   ├── __init__.py
 │   ├── model.py          # RAG model implementation
 │   └── api.py            # FastAPI backend
 ├── frontend/
-│   ├── __init__.py
 │   └── app.py            # Chainlit chat interface
 ├── docker/
 │   ├── backend.Dockerfile
 │   └── frontend.Dockerfile
-├── tests/
-│   ├── __init__.py
-│   ├── test_model.py
-│   └── test_api.py
+├── requirements/
+│   ├── backend_requirements.txt
+│   └── frontend_requirements.txt
+├── documents/            # Put/organize your documents here
+│   ├── test_file_1.txt 
+│   └── test_file_2.md
 ├── .env.example          # Example environment variables
 ├── .gitignore
 ├── docker-compose.yml    # Service orchestration
-├── requirements.txt      # Python dependencies
+├── requirements.txt      # Python dependencies as a whole (not needed)
 ├── chainlit.md          # Chainlit configuration
 └── README.md
 ```
@@ -95,13 +94,12 @@ rag-chatbot-python-fullstack-template/
 ## 🔒 Security
 
 All processing is done locally through Ollama
-Documents are stored securely in MongoDB
 No data leaves your infrastructure
 Authentication can be added as needed
 
+
 ## 🛠️ Configuration
 Environment variables (.env):
-* CopyMONGODB_URL=mongodb://admin:password@mongodb:27017
 * OLLAMA_URL=http://localhost:11434
 * CHAINLIT_AUTH_SECRET=your-secret-key
 
@@ -124,4 +122,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 * LangChain for RAG implementation
 * Chainlit for the chat interface
 * FastAPI for the backend framework
-* MongoDB for document storage
