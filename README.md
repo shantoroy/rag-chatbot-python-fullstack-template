@@ -29,19 +29,32 @@ User ───────────────▶ Chainlit UI       Document
 ## 🚀 Getting Started
 ### Prerequisites
 
-* Docker and Docker Compose
+* Docker
+    * Linux: Follow the official Docker documentation for your distribution.
+    * Windows: Download and install Docker Desktop for Windows.
+    * MacOS: Download and install Docker Desktop for MacOS.
+* Docker Compose
 * Ollama (for local model running)
 * Python 3.10+
 
 
 ### Set-up
-
+#### Install Ollama
 * Install Ollama locally (for Mac): 
 ```
 brew install ollama
 brew services start ollama
 ```
 
+* Install Ollama locally (for Linux): 
+```
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+* Install Ollama locally (for Windows): 
+Download and install Ollama from the official Ollama website.
+
+#### Next Steps
 * Download required models: 
 ```
 ollama run mistral
@@ -54,10 +67,17 @@ git clone https://github.com/yourusername/rag-chatbot-python-fullstack-template.
 cd rag-chatbot-python-fullstack-template
 ```
 
+* Configure .env file (check details at the **Configuration** section below)
+
 * Start the services:
 ```
 docker-compose build
 docker-compose up -d
+```
+
+* Stop the services:
+```
+docker-compose down
 ```
 
 ### Usage
