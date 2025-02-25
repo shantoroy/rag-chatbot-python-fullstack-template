@@ -1,6 +1,10 @@
 import chainlit as cl
 import requests
+import logging
 import os
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @cl.on_chat_start
 async def start():
@@ -12,6 +16,7 @@ async def start():
         content="👋 Hello! I'm your company knowledge assistant. Ask me anything!",
         author="Assistant"
     ).send()
+
 
 @cl.on_message
 async def main(message: cl.Message):
@@ -28,13 +33,28 @@ async def main(message: cl.Message):
 
         if result.get("status") == "success":
             answer = result.get("answer", "I'm not sure how to respond to that.")
+            sources = result.get("sources", [])  # Get the list of sources
+            source_info = ""
+
+            if sources:
+                unique_sources = set()  # Use a set to store unique sources
+                for source in sources:
+                    unique_sources.add(source.get('source', 'Unknown Source'))
+
+                source_info = "\n\n**Sources:**\n"  # Add a separator and heading
+                for unique_source in unique_sources:
+                    source_info += f"- {unique_source}\n"
+            else:
+                source_info = "\n\nNo relevant documents were found."
+
+            full_answer = answer + source_info  # Combine answer and sources
         else:
-            answer = f"Error: {result.get('error', 'Unknown error')}"
+            full_answer = f"❌ Error: {result.get('error', 'Unknown error')}"
 
     except Exception as e:
-        answer = f"❌ Sorry, an error occurred: {str(e)}"
+        full_answer = f"❌ Sorry, an error occurred: {str(e)}"
 
     await cl.Message(
-        content=answer,
+        content=full_answer,
         author="Assistant"
     ).send()

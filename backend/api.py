@@ -4,7 +4,7 @@ import os
 import shutil
 import logging
 from model import RAGModel
-from typing import Optional
+from typing import List, Optional, Dict, Any
 
 app = FastAPI()
 logging.basicConfig(level=logging.INFO)
@@ -16,6 +16,7 @@ class Question(BaseModel):
 class Answer(BaseModel):
     answer: str
     status: str
+    sources: Optional[List[Dict[str, Any]]] = None
     error: Optional[str] = None
 
 # Initialize model with environment variables
@@ -62,14 +63,22 @@ async def upload_file(file: UploadFile = File(...)):
         logger.error(f"Error uploading file: {str(e)}")
         return {"error": str(e)}
 
+
 @app.post("/ask", response_model=Answer)
 async def ask_question(question: Question):
     """Handle questions and return answers."""
     try:
-        result = model.get_answer(question.text)  # Removed 'await'
+        result = model.get_answer(question.text)
+        sources_metadata = []
+
+        if result["sources"]:
+            for doc in result["sources"]:
+                sources_metadata.append(doc.metadata)  # Extract metadata
+
         return Answer(
             answer=result["answer"],
             status=result["status"],
+            sources=sources_metadata,  # Return serialized metadata
             error=result.get("error")
         )
     except Exception as e:

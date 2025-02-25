@@ -104,8 +104,8 @@ class RAGModel:
             logger.info(f"Split into {len(texts)} text chunks.")
 
             # Log a sample of the chunks to verify content
-            if texts:
-                logger.info(f"Sample chunk content: {texts[0].page_content[:200]}...")
+            # if texts:
+            #     logger.info(f"Sample chunk content: {texts[0].page_content[:200]}...")
 
             logger.info("Creating vector store...")
             self.vector_store = FAISS.from_documents(texts, self.embeddings)
@@ -167,7 +167,7 @@ class RAGModel:
 
             logger.info(f"Query passed to QA chain: {question}")
             result = self.qa_chain({"query": question})
-            logger.info(f"QA chain result: {result}")
+            # logger.info(f"QA chain result: {result}")
 
             # Extract the answer
             answer = result.get("result", "No answer found.")
