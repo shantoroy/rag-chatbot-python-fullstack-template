@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: your-registry/rag-frontend:latest  # Replace with your container registry
+        ports:
+        - containerPort: 8505
+        env:
+        - name: BACKEND_URL
+          value: "http://backend-service:8000"
+        - name: CHAINLIT_AUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: chainlit-auth-secret
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "200m"

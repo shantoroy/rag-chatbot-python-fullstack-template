@@ -104,6 +104,12 @@ Environment variables (.env):
 * CHAINLIT_AUTH_SECRET=your-secret-key
 
 
+## Kubernetes Deployment
+Added sample kubernetes config files under `kubernetes-template` folder. 
+You need to modify values before production usage.
+Read the [Deployment Steps](kubernetes-template/README-kubernetes.md) guide for details.
+
+
 ## 🤝 Contributing
 
 * Fork the repository
