@@ -83,7 +83,7 @@ rag-chatbot-python-fullstack-template/
 ├── documents/            # Put/organize your documents here
 │   ├── test_file_1.txt 
 │   └── test_file_2.md
-├── .env.example          # Example environment variables
+├── .env.example          # Example file, rename to .env
 ├── .gitignore
 ├── docker-compose.yml    # Service orchestration
 ├── requirements.txt      # Python dependencies as a whole (not needed)
@@ -99,6 +99,9 @@ Authentication can be added as needed
 
 
 ## 🛠️ Configuration
+Don't forget to rename the .env.example file to .env
+Also add your own secret key.
+
 Environment variables (.env):
 * OLLAMA_URL=http://localhost:11434
 * CHAINLIT_AUTH_SECRET=your-secret-key
