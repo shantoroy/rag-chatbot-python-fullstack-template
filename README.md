@@ -103,6 +103,27 @@ Environment variables (.env):
 * OLLAMA_URL=http://localhost:11434
 * CHAINLIT_AUTH_SECRET=your-secret-key
 
+To generate a CHAINLIT_AUTH_SECRET for your .env file, you can use the following command:
+```
+openssl rand -hex 32
+```
+
+This command uses OpenSSL to generate a secure random 32-byte hexadecimal string, which is suitable for use as an authentication secret. After running this command, you'll get a string that looks something like:
+```
+3d7c4e608f6df9a0e3e3ded3f1c3f384b9b3a9f9e5c1a0e2b4a8d1e0f2c3b4a7
+```
+
+You would then add this to your .env file:
+```
+CHAINLIT_AUTH_SECRET=3d7c4e608f6df9a0e3e3ded3f1c3f384b9b3a9f9e5c1a0e2b4a8d1e0f2c3b4a7
+```
+
+For Kubernetes, you'll need to encode this value as base64 before adding it to your secrets.yaml file:
+```
+echo -n "3d7c4e608f6df9a0e3e3ded3f1c3f384b9b3a9f9e5c1a0e2b4a8d1e0f2c3b4a7" | base64
+```
+Then use the resulting base64 string in your Kubernetes secrets configuration.
+
 
 ## Kubernetes Deployment
 Added sample kubernetes config files under `kubernetes-template` folder. 
