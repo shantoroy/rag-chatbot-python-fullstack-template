@@ -93,19 +93,20 @@ rag-chatbot-python-fullstack-template/
 
 ## 🔒 Security
 
-All processing is done locally through Ollama
-No data leaves your infrastructure
-Authentication can be added as needed
+* All processing is done locally through Ollama
+* No data leaves your infrastructure
+* Authentication can be added as needed
 
 
 ## 🛠️ Configuration
-Don't forget to rename the .env.example file to .env
-Also add your own secret key.
+* Don't forget to rename the .env.example file to .env
+* Also add your own secret key.
 
-Environment variables (.env):
+#### Environment variables (.env):
 * OLLAMA_URL=http://localhost:11434
 * CHAINLIT_AUTH_SECRET=your-secret-key
 
+#### Notes
 To generate a CHAINLIT_AUTH_SECRET for your .env file, you can use the following command:
 ```
 openssl rand -hex 32
