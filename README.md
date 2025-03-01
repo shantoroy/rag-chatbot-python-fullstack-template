@@ -30,9 +30,9 @@ User ───────────────▶ Chainlit UI       Document
 ### Prerequisites
 
 * Docker
-    * Linux: Follow the official Docker documentation for your distribution.
-    * Windows: Download and install Docker Desktop for Windows.
-    * MacOS: Download and install Docker Desktop for MacOS.
+    * **Linux**: Follow the official Docker documentation for your distribution.
+    * **Windows**: Download and install Docker Desktop for Windows.
+    * **MacOS**: Download and install Docker Desktop for MacOS.
 * Docker Compose
 * Ollama (for local model running)
 * Python 3.10+
@@ -40,45 +40,45 @@ User ───────────────▶ Chainlit UI       Document
 
 ### Set-up
 #### Install Ollama
-* Install Ollama locally (for Mac): 
-```
-brew install ollama
-brew services start ollama
-```
+* Install Ollama locally (for **Mac**): 
+  ```bash
+  brew install ollama
+  brew services start ollama
+  ```
 
-* Install Ollama locally (for Linux): 
-```
-curl -fsSL https://ollama.com/install.sh | sh
-```
+* Install Ollama locally (for **Linux**): 
+  ```bash
+  curl -fsSL https://ollama.com/install.sh | sh
+  ```
 
-* Install Ollama locally (for Windows): 
+* Install Ollama locally (for **Windows**): 
 Download and install Ollama from the official Ollama website.
 
 #### Next Steps
 * Download required models: 
-```
-ollama run mistral
-ollama run nomic-embed-text
-```
+  ```bash
+  ollama run mistral
+  ollama run nomic-embed-text
+  ```
 
 * Clone the repository:
-```
-git clone https://github.com/yourusername/rag-chatbot-python-fullstack-template.git
-cd rag-chatbot-python-fullstack-template
-```
+  ```bash
+  git clone https://github.com/yourusername/rag-chatbot-python-fullstack-template.git
+  cd rag-chatbot-python-fullstack-template
+  ```
 
 * Configure .env file (check details at the **Configuration** section below)
 
 * Start the services:
-```
-docker-compose build
-docker-compose up -d
-```
+  ```bash
+  docker-compose build
+  docker-compose up -d
+  ```
 
 * Stop the services:
-```
-docker-compose down
-```
+  ```bash
+  docker-compose down
+  ```
 
 ### Usage
 
@@ -111,6 +111,9 @@ rag-chatbot-python-fullstack-template/
 └── README.md
 ```
 
+## System Diagram
+![System Diagram](./miscellaneous/media/chatbot.drawio.png)
+
 ## 🔒 Security
 
 * All processing is done locally through Ollama
@@ -128,7 +131,7 @@ rag-chatbot-python-fullstack-template/
 
 #### Notes
 To generate a CHAINLIT_AUTH_SECRET for your .env file, you can use the following command:
-```
+```bash
 openssl rand -hex 32
 ```
 
@@ -143,7 +146,7 @@ CHAINLIT_AUTH_SECRET=3d7c4e608f6df9a0e3e3ded3f1c3f384b9b3a9f9e5c1a0e2b4a8d1e0f2c
 ```
 
 For Kubernetes, you'll need to encode this value as base64 before adding it to your secrets.yaml file:
-```
+```bash
 echo -n "3d7c4e608f6df9a0e3e3ded3f1c3f384b9b3a9f9e5c1a0e2b4a8d1e0f2c3b4a7" | base64
 ```
 Then use the resulting base64 string in your Kubernetes secrets configuration.
