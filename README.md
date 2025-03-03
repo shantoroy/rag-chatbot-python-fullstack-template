@@ -63,7 +63,7 @@ Download and install Ollama from the official Ollama website.
 
 * Clone the repository:
   ```bash
-  git clone https://github.com/yourusername/rag-chatbot-python-fullstack-template.git
+  git clone https://github.com/shantoroy/rag-chatbot-python-fullstack-template.git
   cd rag-chatbot-python-fullstack-template
   ```
 
